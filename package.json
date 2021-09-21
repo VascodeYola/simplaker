@@ -1,0 +1,22 @@
+{
+  "name": "simplaker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VascodeYola/simplaker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VascodeYola/simplaker/issues"
+  },
+  "homepage": "https://github.com/VascodeYola/simplaker#readme",
+  "dependencies": {
+    "typescript": "^4.4.3"
+  }
+}
