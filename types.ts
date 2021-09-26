@@ -9,10 +9,6 @@ type Editor = {
 
 type Mode = "view" | "edit";
 
-type selectedItems = {
-    //консистентный тип
-}
-
 type Identifier = string; //А почему не сразу стринг там, где нужен id?
 
 type Palette = {
