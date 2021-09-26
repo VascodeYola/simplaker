@@ -1,21 +1,23 @@
 type Editor = {
-    mode: "view" | "edit";   //Вынести в тип 
+    mode: Mode;   //Вынести в тип. Done
     //history
     palette: Palette;
-    selectedSlides: Array<Identifier>;  //консистентный тип
-    selectedContents: Array<Identifier>;
+    currentSlide: Slide; //мне кажется, всё-таки нужен для понимания с камим именно слайдом работаем?
+    selectedSlides: Array<Identifier>;  //сюда записываются выбранные несколько слайдов    
     presentation: Presentation;
 }
+
+type Mode = "view" | "edit";
 
 type selectedItems = {
     //консистентный тип
 }
 
-type Identifier = string;
+type Identifier = string; //А почему не сразу стринг там, где нужен id?
 
 type Palette = {
     currentColor: string;
-    colorList: Array<string>; /*здесь перечислим цвета */
+    colorList: Array<string>; //здесь перечислим цвета 
 }
 
 type Presentation = {
@@ -27,6 +29,7 @@ type Slide = {
     id: Identifier;
     background: Background;
     contentList: Array<Content>; 
+    selectedContents: Array<Identifier>; //для записи выбранных элементов на странице
 }
 
 type BackgroundImage = {
@@ -49,31 +52,36 @@ type Content = {
     type: ContentType;        
 }
 
-type ContentType = { //расписать по примеру Бэкграунд
-    value: "image" | "primitive" | "text";
-        image: Image; 
-        primitive: Primitive;
-        text: Message;
-}
+type ContentType = Image | Primitive | Message;
 
 type Image = {
-    imageType: "png" | "jpg";
+    imageType: "png" | "jpg"; //убрать расширение?
     imagePath: string;
 }
 
 type Primitive = {
-    type: "circle" | "triangle" | "rectangle";
+    type: PrimitiveType;
+/*     leftTop: Point;
+    width: number;
+    height: number; */
+    strokeColor: string;
+    fillColor: string;
+    strokeWeight: number;
+/* 
     circle: Circle; 
     triangle: Triangle; 
-    rectangle: Rectangle;
+    rectangle: Rectangle; */
 }
+
+type PrimitiveType = "circle" | "triangle" | "rectangle";
 
 type Point = {
     x: number;
     y: number;
 }
+//избавится от Сёркла, Трингла и Регтангла. Done
 
-type Circle =  { //избавится от Сёркла, Трингла и Регтангла
+/* type Circle =  { 
     radius: number;
     center: Point;
     strokeWeight: number;
@@ -98,14 +106,18 @@ type Rectangle = {
     strokeColor: string;
     fillColor: string;
 }
-
+ */
 type Message = {
     value: string;
     fontFamily: string;
     fontColor: string;
     fontSize: number;
-    fontStyle: "italic" | "bold" | "underline"; //вынести в тип
+    fontStyle: FontStyle; //вынести в тип. Done
 }   
+
+type FontStyle = "italic" | "bold" | "underline"; 
+
+
 
 // Export
 // Undo
