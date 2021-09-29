@@ -1,18 +1,25 @@
 type Editor = {
-    mode: Mode;   //Вынести в тип. Done
-    //history
-    palette: Palette;
-    currentSlide: Slide; //мне кажется, всё-таки нужен для понимания с камим именно слайдом работаем?
-    selectedSlides: Array<Identifier>;  //сюда записываются выбранные несколько слайдов    
-    presentation: Presentation;
+    readonly mode: Mode;   //Вынести в тип. Done
+    readonly chronicle: Chronicle;
+    readonly palette: Palette;
+    //если в селектид слайд один слайд, то он работает, как текущий, и можно выбирать контент
+    //если выбрано более одного слайда, то выбор контента слетает.
+
+    readonly selectedSlides: Array<Identifier>;  //сюда записываются выбранные несколько слайдов
+    readonly presentation: Presentation;
+}
+
+type Chronicle = {
+    undo: Array<Editor>;
+    redo: Array<Editor>;
 }
 
 type Mode = "view" | "edit";
 
-type Identifier = string; //А почему не сразу стринг там, где нужен id?
+type Identifier = string; //А почему не сразу стринг там, где нужен id? Тут особая какая то строка будет. Все строки по какому-то шаблону 
 
 type Palette = {
-    currentColor: string;
+    readonly currentColor: string;
     colorList: Array<string>; //здесь перечислим цвета 
 }
 
@@ -45,28 +52,21 @@ type Content = {
     coordinates: Point;
     width: number;
     height: number;
-    type: ContentType;        
+    type: ContentType;
+    zIndex: number;        
 }
 
 type ContentType = Image | Primitive | Message;
 
 type Image = {
-    imageType: "png" | "jpg"; //убрать расширение?
     imagePath: string;
 }
 
 type Primitive = {
     type: PrimitiveType;
-/*     leftTop: Point;
-    width: number;
-    height: number; */
     strokeColor: string;
     fillColor: string;
     strokeWeight: number;
-/* 
-    circle: Circle; 
-    triangle: Triangle; 
-    rectangle: Rectangle; */
 }
 
 type PrimitiveType = "circle" | "triangle" | "rectangle";
@@ -75,34 +75,7 @@ type Point = {
     x: number;
     y: number;
 }
-//избавится от Сёркла, Трингла и Регтангла. Done
 
-/* type Circle =  { 
-    radius: number;
-    center: Point;
-    strokeWeight: number;
-    strokeColor: string;
-    fillColor: string;
-}
-
-type Triangle = {
-    apex1: Point;
-    apex2: Point;
-    apex3: Point;
-    strokeWeight: number;
-    strokeColor: string;
-    fillColor: string;
-}
-
-type Rectangle = {
-    leftTop: Point;
-    width: number;
-    height: number;
-    strokeWeight: number;
-    strokeColor: string;
-    fillColor: string;
-}
- */
 type Message = {
     value: string;
     fontFamily: string;
@@ -118,4 +91,3 @@ type FontStyle = "italic" | "bold" | "underline";
 // Export
 // Undo
 // Redo
-// Transform
