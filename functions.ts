@@ -1,6 +1,6 @@
-Editor
+//Editor
     function createPresentation(): Editor {
-       //...
+        let newEditor: Editor = {}; //здесь параметры по умолчанию 
         return newEditor;
     }
 
@@ -9,6 +9,7 @@ Editor
     }
 
     function openPresentation(pathFile: string): Editor {
+        let newEditor: Editor = {/*Сюда все из json*/};
         return newEditor;
     }
 
@@ -44,7 +45,13 @@ Editor
         };
     }
 
-    selectSlides
+    !!!!function selectSlides(editor: Editor, selectedSlides: Array<Identifier>): Editor {
+        return {
+            ...editor,
+            selectedSlides: selectedSlides,
+        };
+    }
+    
     copySlides
     removeSlides
     moveSlides
@@ -53,14 +60,35 @@ Editor
     redoHistory
     clearRedoHistory
     
-Presentation
-    setPresentationTitle
-    getPresentationTitle
-    setCurrentColor
-    getCurrentColor
+//Presentation
+    function setPresentationTitle(editor: Editor, newTitle: string): Editor {
+        return {
+            ...editor,
+            palette: {
+                ...editor.presentation,
+                title: newTitle,        
+            }
+        };
+    }
+
+    function getPresentationTitle(editor: Editor, newTitle: string): Editor {
+        return editor.presentation.title;
+    }
 
 Slide
-    createContent
+    function createContent(editor: Editor): Editor {
+        let newContent: Content = {};//здесь параметры по умолчанию
+        return {
+            ...editor,
+            presentation: {
+                ...editor.presentation,
+                slideList: [
+                    ...editor.presentation.slideList,
+                    newSlide,
+                ]
+            }
+        };
+    }
     removeContent
     copyContent
     moveContent
@@ -86,27 +114,3 @@ Message
     setColorMessage
     setSizeMessage
     setFontStyleMessage
-
-
-
-
-
-
-function setPresentationTitle(newTitle: string, presentation: Presentation) {
-    presentation.title = newTitle;
-}
-
-function getPresentationTitle(presentation: Presentation): string {
-    return presentation.title;
-}
-
-function getCurrentColor(palette: Palette): string {
-    return palette.currentColor;
-}
-
-//переключение mode editor: "view" -> "edit" или "edit" -> "view"
-function toggleModeEditor(editor: Editor) {
-
-}
-
-//надо еще про currentSlide и currentContent написать, но со структурой не додумали
